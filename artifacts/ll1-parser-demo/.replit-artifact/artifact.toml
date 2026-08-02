@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "LL(1) Predictive Parser Demo"
+description = "An interactive visual demo of a non-recursive LL(1) predictive parser for a given grammar. Shows the transformed grammar, FIRST/FOLLOW sets, parsing table, and an animated step-by-step parsing trace for the input string 'abbcc'. Designed for classroom demonstration."
+version = "1.0.0"
+id = "artifacts/ll1-parser-demo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19499
+
+[services.development]
+run = "pnpm --filter @workspace/ll1-parser-demo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/ll1-parser-demo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/ll1-parser-demo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19499"
+BASE_PATH = "/"
