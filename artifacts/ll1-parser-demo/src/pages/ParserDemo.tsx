@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 // --- DATA STRUCTURES ---
 
+// Original grammar productions (fixed ordering; no duplicates)
 const ORIGINAL_GRAMMAR = [
   { rule: "S → ABC",      badge: null },
   { rule: "A → abA | ab", badge: "left-factor" },
@@ -171,11 +172,17 @@ export default function ParserDemo() {
               <h3 className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Original Grammar</h3>
               <ul className="space-y-2 font-mono text-[15px] text-slate-700 bg-slate-50 p-4 rounded-lg border border-slate-100">
                 {ORIGINAL_GRAMMAR.map((prod, i) => (
-                  <li key={i} className="flex">
+                  <li key={i} className="flex items-center gap-3">
                     <span className="text-slate-400 w-6 select-none">{i+1}.</span>
-                    {prod.includes('BC') ? 
-                      <span>B → b | BC <span className="text-amber-500 text-xs font-sans ml-2 tracking-normal bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">left-recursive</span></span> 
-                      : prod}
+                    <span className="flex items-center gap-2">
+                      <span className="text-slate-700 font-mono">{prod.rule}</span>
+                      {prod.badge === 'left-recursive' && (
+                        <span className="text-amber-500 text-xs font-sans ml-2 tracking-normal bg-amber-50 px-1.5 py-0.5 rounded border border-amber-200">left-recursive</span>
+                      )}
+                      {prod.badge === 'left-factor' && (
+                        <span className="text-indigo-500 text-xs font-sans ml-2 tracking-normal bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-100">left-factor</span>
+                      )}
+                    </span>
                   </li>
                 ))}
               </ul>
