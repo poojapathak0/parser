@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 // --- DATA STRUCTURES ---
 
 const ORIGINAL_GRAMMAR = [
-  "S → ABC",
-  "A → abA | ab",
-  "B → b | BC",
-  "C → c | cC"
+  { rule: "S → ABC",      badge: null },
+  { rule: "A → abA | ab", badge: "left-factor" },
+  { rule: "B → b | BC",   badge: "left-recursive" },
+  { rule: "C → c | cC",   badge: "left-factor" },
 ];
 
 const TRANSFORMED_GRAMMAR = [
